@@ -32,6 +32,15 @@ public class Maze {
     }
     //Returns cell at specific position
     public Cell getCell(int row, int col) {
-        return this.grid[row][col];
+        if (isCellValid(row, col)) {
+            return this.grid[row][col];
+        }
+        return null;
+    }
+
+    //Checks if position is in the maze
+    public boolean isCellValid(int row, int col) {
+        return row >= 0 && row < this.rows &&
+                col >= 0 && col < this.cols;
     }
 }
