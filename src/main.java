@@ -139,7 +139,7 @@ public class main {
          */
 
         //DFS loop test
-        Maze maze = new Maze(4,4);
+        Maze maze = new Maze(30,30);
         MazeGenerator mazeGen =  new MazeGenerator(maze);
 
         mazeGen.generateMaze();
@@ -188,10 +188,31 @@ public class main {
 
         System.out.println("Sides consistent: " + sidesCorrect);
 
+        //Path counter
+        int paths  = 0;
 
+        for (int row = 0; row < maze.getRows(); row++){
+            for (int col = 0; col < maze.getCols(); col++){
 
+                Cell curr =  maze.getCell(row,col);
 
+                //Count open paths to the east
+                if (col < maze.getCols() -1 && !curr.hasEastSide()){
+                    paths++;
+                }
 
+                //Count open paths to the south
+                if (row < maze.getRows() -1 && !curr.hasSouthSide()){
+                    paths++;
+                }
+            }
+        }
+
+        int expectedPaths = maze.getRows() * maze.getCols() - 1;
+
+        System.out.println("Paths: " + paths);
+        System.out.println("Expected paths: " + expectedPaths);
+        System.out.println("Perfect maze path count: " +
+                (paths == expectedPaths));
     }
-
 }
