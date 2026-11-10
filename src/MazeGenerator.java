@@ -56,4 +56,34 @@ public class MazeGenerator {
         int randomIndex = random.nextInt(neighbors.size());
         return neighbors.get(randomIndex);
     }
+
+    //removeSides method
+    public void removeSides(Cell curr, Cell next){
+        int rowDiff = next.getRow() - curr.getRow();
+        int colDiff = next.getCol() - curr.getCol();
+
+        //North
+        if (rowDiff == -1 && colDiff == 0){
+            curr.removeNorthSide();
+            next.removeSouthSide();
+        }
+
+        //South
+        else if (rowDiff == 1 && colDiff == 0){
+            curr.removeEastSide();
+            next.removeWestSide();
+        }
+
+        //West
+        else if (rowDiff == 0 && colDiff == -1){
+            curr.removeWestSide();
+            next.removeEastSide();
+        }
+
+        // East
+        else if (rowDiff == 0 && colDiff == 1){
+            curr.removeEastSide();
+            next.removeWestSide();
+        }
+    }
 }

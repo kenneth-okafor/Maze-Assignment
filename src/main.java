@@ -62,6 +62,7 @@ public class main {
         */
 
         //Random method
+        /*
         Maze maze = new Maze(3,3);
         MazeGenerator mazeGen = new MazeGenerator(maze);
 
@@ -74,6 +75,25 @@ public class main {
                     + neighbour.getRow() + ", "
                     + neighbour.getCol() + ")" );
         }
+         */
+
+        //removeSides test
+        Maze maze = new Maze(3,3);
+        MazeGenerator mazeGen = new MazeGenerator(maze);
+
+        Cell curr = maze.getCell(1,1);
+        Cell next =  maze.getCell(1,2);
+
+        System.out.println("Before removing sides: ");
+        System.out.println("Current east: " + curr.hasEastSide());
+        System.out.println("Next west: " + next.hasWestSide());
+
+        mazeGen.removeSides(curr, next);
+
+        System.out.println("After removing sides: ");
+        System.out.println("Current east: " + curr.hasEastSide());
+        System.out.println("Next west: " + next.hasWestSide());
+
     }
 
 }
