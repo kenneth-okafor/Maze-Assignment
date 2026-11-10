@@ -70,8 +70,8 @@ public class MazeGenerator {
 
         //South
         else if (rowDiff == 1 && colDiff == 0){
-            curr.removeEastSide();
-            next.removeWestSide();
+            curr.removeSouthSide();
+            next.removeNorthSide();
         }
 
         //West
@@ -85,5 +85,48 @@ public class MazeGenerator {
             curr.removeEastSide();
             next.removeWestSide();
         }
+    }
+
+    public void generateMaze(){
+        StackReferenceBased stack = new StackReferenceBased();
+
+        //Begins at top-left cell
+        Cell start = maze.getCell(0, 0);
+
+        //Mark starting cell as visited
+        start.setVisited(true);
+
+        //Push starting cell onto stack
+        stack.push(start);
+
+        //DFS loop
+        while(!stack.isEmpty()){
+
+            //Get current cell from stack
+            Cell curr = (Cell) stack.peek();
+
+            //Select random unvisited neighbour
+            Cell next = getRandomNeighbour(curr);
+
+            if (next !=null){
+
+                //Remove the sides between both cells
+                removeSides(curr, next);
+
+                //Mark next cell as visited
+                next.setVisited(true);
+
+                //Add next cell to stack
+                stack.push(next);
+            } else {
+                //Dead end: backtrack
+                stack.pop();
+            }
+
+        }
+
+        System.out.println("Starting DFS at (" +
+                start.getRow() + "," +
+                start.getCol() + ")");
     }
 }

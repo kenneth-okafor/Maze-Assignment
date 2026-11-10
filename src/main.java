@@ -78,6 +78,7 @@ public class main {
          */
 
         //removeSides test
+        /*
         Maze maze = new Maze(3,3);
         MazeGenerator mazeGen = new MazeGenerator(maze);
 
@@ -93,6 +94,103 @@ public class main {
         System.out.println("After removing sides: ");
         System.out.println("Current east: " + curr.hasEastSide());
         System.out.println("Next west: " + next.hasWestSide());
+         */
+
+        //Stack test
+        /*
+        Maze maze = new Maze(4,4);
+        StackReferenceBased stack = new StackReferenceBased();
+
+        Cell one = new Cell(0,0);
+        Cell two = new Cell(0,1);
+        Cell three = new Cell(0,2);
+
+        //Adding cells to stack
+        stack.push(one);
+        stack.push(two);
+        stack.push(three);
+
+        //Check top cell
+        Cell curr = (Cell) stack.peek();
+
+        System.out.println("Top cell: (" +
+                curr.getRow() + "," +
+                curr.getCol() + ")");
+
+        //Remove top cell
+        stack.pop();
+
+        curr = (Cell) stack.peek();
+
+        System.out.println("After pop: (" +
+                curr.getRow() + "," +
+                curr.getCol() + ")");
+         */
+
+        //DFS initialisation stage testing
+        /*
+        Maze maze = new Maze(4,4);
+        MazeGenerator mazeGen = new MazeGenerator(maze);
+
+        mazeGen.generateMaze();
+
+        System.out.println("Starting cell visited: " +
+                maze.getCell(0,0).isVisited());
+         */
+
+        //DFS loop test
+        Maze maze = new Maze(4,4);
+        MazeGenerator mazeGen =  new MazeGenerator(maze);
+
+        mazeGen.generateMaze();
+        int visitedCount = 0;
+
+        for (int row = 0; row < maze.getRows(); row++){
+            for (int col = 0; col < maze.getCols(); col++){
+                if (maze.getCell(row,col).isVisited()){
+                    visitedCount++;
+                }
+            }
+        }
+
+        System.out.println("Visited cells: " + visitedCount);
+        System.out.println("Total cells: " +
+                maze.getRows() * maze.getCols());
+
+        //Check to see if removing a side from one cell
+        // removes the corresponding side from its neighbour
+        boolean sidesCorrect = true;
+
+        for (int row = 0; row < maze.getRows(); row++){
+            for (int col = 0; col < maze.getCols(); col++){
+
+                Cell curr =  maze.getCell(row,col);
+
+                //Check east-west sides
+                if (col < maze.getCols() -1){
+                    Cell east =  maze.getCell(row,col+1);
+
+                    if (curr.hasEastSide() != east.hasWestSide()){
+                        sidesCorrect = false;
+                    }
+                }
+
+                //Check north-south sides
+                if  (row < maze.getRows() -1){
+                    Cell south =  maze.getCell(row+1,col);
+
+                    if (curr.hasSouthSide() != south.hasNorthSide()){
+                        sidesCorrect = false;
+                    }
+                }
+            }
+        }
+
+        System.out.println("Sides consistent: " + sidesCorrect);
+
+
+
+
 
     }
 
