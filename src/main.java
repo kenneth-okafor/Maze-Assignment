@@ -139,6 +139,7 @@ public class main {
          */
 
         //DFS loop test
+        /*
         Maze maze = new Maze(30,30);
         MazeGenerator mazeGen =  new MazeGenerator(maze);
 
@@ -214,5 +215,56 @@ public class main {
         System.out.println("Expected paths: " + expectedPaths);
         System.out.println("Perfect maze path count: " +
                 (paths == expectedPaths));
+         */
+
+
+        //First queue array test
+        /*
+        Maze maze =  new Maze(4,4);
+        QueueArrayBased queue = new QueueArrayBased();
+
+        Cell one = maze.getCell(0,0);
+        Cell two = maze.getCell(0,1);
+        Cell three = maze.getCell(0,2);
+        Cell four = maze.getCell(0,3);
+        Cell five = maze.getCell(0,4);
+
+        //Add cells to queue
+        queue.enqueue(one);
+        queue.enqueue(two);
+        queue.enqueue(three);
+        queue.enqueue(four);
+        queue.enqueue(five);
+
+        //Retrieve & remove first cell
+        Cell curr = (Cell)queue.dequeue();
+
+        System.out.println("First removed: (" +
+                curr.getRow() + "," +
+                curr.getCol() + ")");
+
+        //Retrieve & remove next cell
+        curr = (Cell)queue.dequeue();
+
+        System.out.println("Second removed: (" +
+                curr.getRow() + "," +
+                curr.getCol() + ")");
+
+        curr = (Cell)queue.dequeue();
+
+        System.out.println("Third removed: (" +
+                curr.getRow() + "," +
+                curr.getCol() + ")");
+         */
+
+        //Updated queue test
+        QueueArrayBased queue = new QueueArrayBased(100);
+        for(int i = 0; i < 100; i++){
+            queue.enqueue(i);
+        }
+
+        System.out.println("Queue full: " + queue.isFull());
+        System.out.println("First removed: " + queue.dequeue());
+        System.out.println("Queue full after dequeue: " + queue.isFull());
     }
 }
