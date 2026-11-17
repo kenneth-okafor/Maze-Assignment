@@ -9,6 +9,21 @@ public class MazePanel extends JPanel {
     private int cellSize = 30;
     private List<Cell> solution;
 
+    public void setSolution(List<Cell> solution) {
+        this.solution = solution;
+        repaint();
+    }
+
+    public void setMaze(Maze maze) {
+        this.maze = maze;
+        this.solution = null;
+        repaint();
+    }
+
+    public Maze getMaze() {
+        return this.maze;
+    }
+
     public MazePanel(Maze maze, List<Cell> solution) {
         this.maze = maze;
         this.solution = solution;
