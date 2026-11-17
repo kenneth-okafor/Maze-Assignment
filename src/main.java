@@ -258,6 +258,7 @@ public class main {
          */
 
         //Updated queue test
+        /*
         QueueArrayBased queue = new QueueArrayBased(100);
         for(int i = 0; i < 100; i++){
             queue.enqueue(i);
@@ -266,5 +267,18 @@ public class main {
         System.out.println("Queue full: " + queue.isFull());
         System.out.println("First removed: " + queue.dequeue());
         System.out.println("Queue full after dequeue: " + queue.isFull());
+         */
+
+        //MazeSolver constructor
+        Maze maze = new Maze(10,10);
+
+        MazeGenerator mazeGen = new MazeGenerator(maze);
+        mazeGen.generateMaze();
+
+        MazeSolver solver = new MazeSolver(maze);
+
+        System.out.println("MazeSolver created successfully!");
+
+        solver.solveMaze();
     }
 }

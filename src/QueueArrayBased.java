@@ -86,5 +86,4 @@ public class QueueArrayBased implements QueueInterface {
       System.out.println("Back");
     }
   }
-   
 } // end QueueArrayBased
