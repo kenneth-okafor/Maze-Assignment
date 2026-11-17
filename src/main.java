@@ -271,6 +271,7 @@ public class main {
         System.out.println("Queue full after dequeue: " + queue.isFull());
          */
 
+        /*
         //MazeSolver constructor
         Maze maze = new Maze(10,10);
 
@@ -284,5 +285,30 @@ public class main {
         List<Cell> solution = solver.solveMaze();
 
         System.out.println("Solution contains " + solution.size() + " cells.");
+         */
+
+        //MazePanel initial test
+        Maze maze = new Maze(10,10);
+
+        MazeGenerator mazeGen = new MazeGenerator(maze);
+        mazeGen.generateMaze();
+        MazeSolver solver = new MazeSolver(maze);
+        List<Cell> solution = solver.solveMaze();
+
+        javax.swing.SwingUtilities.invokeLater(() -> {
+
+            javax.swing.JFrame frame =
+                    new javax.swing.JFrame("Maze Assignment");
+
+            MazePanel mazePan = new MazePanel(maze, solution);
+            frame.add(mazePan);
+            frame.pack();
+
+            frame.setDefaultCloseOperation(
+                    javax.swing.JFrame.EXIT_ON_CLOSE);
+
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+        });
     }
 }
