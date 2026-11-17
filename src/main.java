@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class main {
     public static void main(String[] args){
         //Test Cell.java
@@ -279,6 +281,8 @@ public class main {
 
         System.out.println("MazeSolver created successfully!");
 
-        solver.solveMaze();
+        List<Cell> solution = solver.solveMaze();
+
+        System.out.println("Solution contains " + solution.size() + " cells.");
     }
 }
