@@ -17,6 +17,12 @@ public class MazePanel extends JPanel {
     public void setMaze(Maze maze) {
         this.maze = maze;
         this.solution = null;
+
+        setPreferredSize(new Dimension(
+                maze.getCols() * cellSize + 1,
+                maze.getRows() * cellSize + 1));
+
+        revalidate();
         repaint();
     }
 
@@ -29,8 +35,8 @@ public class MazePanel extends JPanel {
         this.solution = solution;
 
         setPreferredSize(new Dimension(
-                maze.getCols() * cellSize,
-                maze.getRows() * cellSize));
+                maze.getCols() * cellSize + 1,
+                maze.getRows() * cellSize + 1));
     }
     @Override
     protected  void  paintComponent(Graphics g) {
@@ -50,7 +56,7 @@ public class MazePanel extends JPanel {
                     g.setColor(Color.GREEN);
                     g.fillRect(x + 1, y + 1,
                             cellSize - 1, cellSize - 1);
-                };
+                }
 
                 if (row == 0 && col == 0) {
                     //Starting cell
@@ -63,7 +69,7 @@ public class MazePanel extends JPanel {
                     //Finishing cell
                     g.setColor(Color.RED);
                     g.fillRect(x + 1, y + 1, cellSize - 1, cellSize - 1);
-                };
+                }
 
                 //Colour set to black before drawing sides
                 g.setColor(Color.BLACK);

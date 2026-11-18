@@ -4,7 +4,7 @@ import java.util.List;
 
 public class main {
     public static void main(String[] args){
-        //MazePanel initial test
+
         Maze maze = new Maze(10,10);
 
         MazeGenerator mazeGen = new MazeGenerator(maze);
@@ -18,16 +18,37 @@ public class main {
             MazePanel mazePan = new MazePanel(maze, null);
             JPanel buttonPanel = new JPanel();
 
+            String[] mazeSizes = {"5 x 5", "10 x 10", "20 x 20"};
+
+            JComboBox<String> sizeBox = new JComboBox<>(mazeSizes);
+
+            //Default selection 10x10
+            sizeBox.setSelectedItem("10 x 10");
+
+            buttonPanel.add(new JLabel("Maze Size:"));
+            buttonPanel.add(sizeBox);
+
             JButton generateButton = new JButton("Create Maze");
             buttonPanel.add(generateButton);
 
             JButton solveButton = new JButton("Solve Maze");
             buttonPanel.add(solveButton);
 
+            JButton clearButton = new JButton("Clear Maze");
+            buttonPanel.add(clearButton);
+
             generateButton.addActionListener(e -> {
 
                 //new 10 x 10 maze
-                Maze newMaze = new Maze(10,10);
+                String selectedSize = (String) sizeBox.getSelectedItem();
+
+                int size =10;
+
+                if (selectedSize != null) {
+                    size = Integer.parseInt(selectedSize.split(" x ")[0]);
+                }
+
+                Maze newMaze = new Maze(size,size);
 
                 //Creates random paths using DFS
                 MazeGenerator newMazeGen = new MazeGenerator(newMaze);
@@ -35,6 +56,9 @@ public class main {
 
                 //Display new maze
                 mazePan.setMaze(newMaze);
+
+                frame.pack();
+                frame.setLocationRelativeTo(null);
             });
 
             solveButton.addActionListener(e -> {
@@ -52,6 +76,11 @@ public class main {
                 mazePan.setSolution(solution);
             });
 
+            clearButton.addActionListener(e -> {
+                //Clear shortest path
+                mazePan.setSolution(null);
+            });
+
             frame.setLayout(new BorderLayout());
             frame.add(mazePan, BorderLayout.CENTER);
             frame.add(buttonPanel, BorderLayout.SOUTH);
@@ -63,7 +92,6 @@ public class main {
 
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
-            //mazePan.setSolution(solution);
         });
     }
 }
