@@ -19,18 +19,18 @@ The application uses Java Swing to display the maze and animate the generation a
 The project uses the stack and queue implementations from our Data Structures and Algorithms labs.
 
 ## Project Structure
-- `Cell.java` — Stores each cell's coordinates, walls and visited state.
-- `Maze.java` — Creates and manages the 2D grid.
-- `MazeGenerator.java` — Generates mazes using DFS.
-- `MazeSolver.java` — Solves mazes using BFS.
-- `MazePanel.java` — Draws the maze and animations.
-- `main.java` / `Main.java` — Creates the GUI and handles button actions.
+- `src/Cell.java` — Stores each cell's coordinates, walls and visited state.
+- `src/Maze.java` — Creates and manages the 2D grid.
+- `src/MazeGenerator.java` — Generates mazes using DFS.
+- `src/MazeSolver.java` — Solves mazes using BFS.
+- `src/MazePanel.java` — Draws the maze and animations.
+- `main.java` / `src/Main.java` — Creates the GUI and handles button actions.
 - Stack and Queue classes — Provide the data structures used by the algorithms.
 
 ## Running the Application
 1. Open the project in IntelliJ IDEA.
 2. Make sure a Java JDK is configured.
-3. Open `main.java` (or `Main.java` if renamed).
+3. Open `main.java` (or `src/Main.java` if renamed).
 4. Run its `main()` method.
 5. Use **Create Maze** to generate a maze and **Solve Maze** to find the shortest path.
 6. Use **Clear Maze** to remove the highlighted solution.
