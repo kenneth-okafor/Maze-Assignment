@@ -24,7 +24,7 @@ public class Main {
             JPanel buttonPanel = new JPanel();
 
             //Maze size selection
-            String[] mazeSizes = {"5 x 5", "10 x 10", "20 x 20"};
+            String[] mazeSizes = {"5 x 5", "10 x 10", "20 x 20", "30 x 30"};
 
             JComboBox<String> sizeBox = new JComboBox<>(mazeSizes);
             sizeBox.setSelectedItem("10 x 10");
