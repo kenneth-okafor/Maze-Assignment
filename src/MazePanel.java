@@ -8,15 +8,34 @@ public class MazePanel extends JPanel {
     private Maze maze;
     private int cellSize = 30;
     private List<Cell> solution;
+    private int visiblePathCells = 0;
+    private List<Cell> exploredCells;
 
     public void setSolution(List<Cell> solution) {
         this.solution = solution;
+
+        if (solution == null) {
+            visiblePathCells = 0;
+        } else {
+            visiblePathCells = solution.size();
+        }
+        repaint();
+    }
+
+    public void setVisiblePathCells(int count) {
+        visiblePathCells = count;
+        repaint();
+    }
+    public void setExploredCells(List<Cell> exploredCells) {
+        this.exploredCells = exploredCells;
         repaint();
     }
 
     public void setMaze(Maze maze) {
         this.maze = maze;
         this.solution = null;
+        this.exploredCells = null;
+        visiblePathCells = 0;
 
         setPreferredSize(new Dimension(
                 maze.getCols() * cellSize + 1,
@@ -33,6 +52,8 @@ public class MazePanel extends JPanel {
     public MazePanel(Maze maze, List<Cell> solution) {
         this.maze = maze;
         this.solution = solution;
+
+        setBackground(Color.WHITE);
 
         setPreferredSize(new Dimension(
                 maze.getCols() * cellSize + 1,
@@ -52,10 +73,20 @@ public class MazePanel extends JPanel {
                 int x = col * cellSize;
                 int y = row * cellSize;
 
-                if (solution != null && solution.contains(cell)) {
-                    g.setColor(Color.GREEN);
-                    g.fillRect(x + 1, y + 1,
-                            cellSize - 1, cellSize - 1);
+                //Highlights cell explored during BFS
+                if (exploredCells != null && exploredCells.contains(cell)) {
+                    g.setColor(Color.CYAN);
+                    g.fillRect(x + 1, y + 1, cellSize - 1, cellSize - 1);
+                }
+
+                if (solution != null) {
+                    int index = solution.indexOf(cell);
+
+                    if  (index >= 0 && index < visiblePathCells) {
+                        g.setColor(Color.GREEN);
+                        g.fillRect(x + 1, y + 1,
+                                cellSize - 1, cellSize - 1);
+                    }
                 }
 
                 if (row == 0 && col == 0) {

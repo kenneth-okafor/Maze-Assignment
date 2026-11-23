@@ -5,9 +5,66 @@ import java.util.Random;
 public class MazeGenerator {
     private Maze maze;
     private Random random =  new Random();
+    private StackReferenceBased animationStack;
+    private boolean generationComplete;
 
     public MazeGenerator(Maze maze) {
         this.maze = maze;
+    }
+
+    public void startGeneration() {
+
+        //Create fresh stack for animated DFS
+        animationStack = new StackReferenceBased();
+
+        generationComplete = false;
+
+        //Start at top-left cell
+        Cell start = maze.getCell(0,0);
+
+        //Mark starting cell as visited
+        start.setVisited(true);
+
+        //Push onto stack
+        animationStack.push(start);
+    }
+
+    public boolean generateStep() {
+
+        //No cells left to explore
+        if (animationStack.isEmpty()) {
+            generationComplete = true;
+            return false;
+        }
+
+        //Look at current cell
+        Cell curr = (Cell) animationStack.peek();
+
+        //Find a random unvisited neighbour
+        Cell next = getRandomNeighbour(curr);
+
+        if (next != null) {
+
+            //Remove side between cells
+            removeSides(curr, next);
+
+            //Mark neighbour as visited
+            next.setVisited(true);
+
+            //Push onto stack
+            animationStack.push(next);
+
+        } else  {
+
+            //Dead end: backtrack
+            animationStack.pop();
+        }
+
+        return true;
+    }
+
+    public boolean isGenerationComplete() {
+        return generationComplete;
     }
 
     //Finds every unvisited neighbouring cell
@@ -88,45 +145,10 @@ public class MazeGenerator {
     }
 
     public void generateMaze(){
-        StackReferenceBased stack = new StackReferenceBased();
+        startGeneration();
 
-        //Begins at top-left cell
-        Cell start = maze.getCell(0, 0);
-
-        //Mark starting cell as visited
-        start.setVisited(true);
-
-        //Push starting cell onto stack
-        stack.push(start);
-
-        //DFS loop
-        while(!stack.isEmpty()){
-
-            //Get current cell from stack
-            Cell curr = (Cell) stack.peek();
-
-            //Select random unvisited neighbour
-            Cell next = getRandomNeighbour(curr);
-
-            if (next !=null){
-
-                //Remove the sides between both cells
-                removeSides(curr, next);
-
-                //Mark next cell as visited
-                next.setVisited(true);
-
-                //Add next cell to stack
-                stack.push(next);
-            } else {
-                //Dead end: backtrack
-                stack.pop();
-            }
+        while (generateStep()) {
 
         }
-
-        System.out.println("Starting DFS at (" +
-                start.getRow() + "," +
-                start.getCol() + ")");
     }
 }
